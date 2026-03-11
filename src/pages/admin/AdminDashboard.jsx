@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from '../../components/layout/Sidebar';
-import { LayoutDashboard, Users, Home, Settings, MessageSquareWarning, Bell, Utensils } from 'lucide-react';
+import { LayoutDashboard, Users, Home, Settings, MessageSquareWarning, Bell, Utensils, CreditCard } from 'lucide-react';
 
 // Sub-pages
 import Overview from './Overview';
@@ -11,11 +11,13 @@ import RoomAllocation from './RoomAllocation';
 import ComplaintManager from './ComplaintManager';
 import NoticeBoard from './NoticeBoard';
 import MessManagement from './MessManagement';
+import FeeManagement from './FeeManagement';
 
 const AdminDashboard = () => {
     const adminLinks = [
         { path: "/admin", label: "Dashboard", icon: <LayoutDashboard size={20} />, end: true },
         { path: "/admin/students", label: "Students", icon: <Users size={20} /> },
+        { path: "/admin/fees", label: "Fee Management", icon: <CreditCard size={20} /> },
         { path: "/admin/rooms", label: "Rooms", icon: <Home size={20} /> },
         { path: "/admin/allocation", label: "Allocation Algo", icon: <Settings size={20} /> },
         { path: "/admin/complaints", label: "Complaints", icon: <MessageSquareWarning size={20} /> },
@@ -31,6 +33,7 @@ const AdminDashboard = () => {
                 <Routes>
                     <Route path="/" element={<Overview />} />
                     <Route path="/students" element={<StudentDirectory />} />
+                    <Route path="/fees" element={<FeeManagement />} />
                     <Route path="/rooms" element={<RoomManagement />} />
                     <Route path="/allocation" element={<RoomAllocation />} />
                     <Route path="/complaints" element={<ComplaintManager />} />

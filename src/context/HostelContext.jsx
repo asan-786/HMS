@@ -13,6 +13,16 @@ export const HostelProvider = ({ children }) => {
     const [complaints, setComplaints] = useState(mockComplaints);
     const [notices, setNotices] = useState(mockNotices);
     const [messMenu, setMessMenu] = useState(messMenuData);
+    const [feeConfig, setFeeConfig] = useState({
+        singleRoomHostel: 13000,
+        standardRoomHostel: 12000,
+        girlsMess: 18500,
+        boysMess: 17500
+    });
+
+    const updateFeeConfig = (newConfig) => {
+        setFeeConfig(prev => ({ ...prev, ...newConfig }));
+    };
 
     const updateMessMenu = (gender, year, updatedMenu) => {
         setMessMenu(prev => ({
@@ -45,14 +55,25 @@ export const HostelProvider = ({ children }) => {
         setRooms(rooms.map(r => r.id === roomId ? { ...r, occupants: r.occupants + 1 } : r));
     };
 
+    const updateStudentFeeStatus = (studentId, type, status) => {
+        setStudents(students.map(s => {
+            if (s.id === studentId) {
+                if (type === 'hostel') return { ...s, feesPaid: status };
+                if (type === 'mess') return { ...s, messFeesPaid: status };
+            }
+            return s;
+        }));
+    };
+
     const addNotice = (notice) => {
         setNotices([{ id: Date.now(), ...notice, date: new Date().toISOString().split('T')[0] }, ...notices]);
     };
 
     return (
         <HostelContext.Provider value={{
-            students, rooms, hostels, complaints, notices, messMenu,
-            addComplaint, resolveComplaint, allocateRoom, addNotice, setStudents, updateHostelConfig, updateMessMenu
+            students, rooms, hostels, complaints, notices, messMenu, feeConfig,
+            addComplaint, resolveComplaint, allocateRoom, addNotice, setStudents, updateHostelConfig, updateMessMenu,
+            updateStudentFeeStatus, updateFeeConfig
         }}>
             {children}
         </HostelContext.Provider>

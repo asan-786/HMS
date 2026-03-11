@@ -78,23 +78,33 @@ const AdmissionForm = () => {
                             <input type="text" required defaultValue="Mahesh" style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none' }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>pecentile(First year student)</label>
+                            <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Percentile (First year student)</label>
                             <input type="text" required style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none' }} />
                         </div>
                     </div>
 
                     <div className="grid-2">
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Fathers name</label>
-                            <input type="text" required defaultValue="Mahesh" style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none' }} />
+                            <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Student Phone Number</label>
+                            <input type="tel" required placeholder="+91 XXXXX XXXXX" style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none' }} />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                             <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Gender</label>
-                            <select required defaultValue="General" style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none', appearance: 'none' }}>
+                            <select required defaultValue="Male" style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none', appearance: 'none' }}>
                                 <option value="Male" style={{ background: 'var(--bg-card)' }}>Male</option>
                                 <option value="Female" style={{ background: 'var(--bg-card)' }}>Female</option>
-
                             </select>
+                        </div>
+                    </div>
+
+                    <div className="grid-2">
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Father's Name</label>
+                            <input type="text" required style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none' }} />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Father's Phone Number</label>
+                            <input type="tel" required placeholder="+91 XXXXX XXXXX" style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', color: '#fff', outline: 'none' }} />
                         </div>
                     </div>
 
