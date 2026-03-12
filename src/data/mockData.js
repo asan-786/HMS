@@ -1,5 +1,5 @@
 export const mockStudents = [
-    { id: 1, name: "Mahesh Lodha", email: "student@college.edu", room: "H4-15", cgpa: 8.9, category: "General", year: 2, gender: "Male", feesPaid: true, messEnrolled: true, messFeesPaid: true },
+    { id: 1, name: "Mahesh Lovevanshi", email: "student@college.edu", room: "H4-15", cgpa: 8.9, category: "General", year: 2, gender: "Male", feesPaid: true, messEnrolled: true, messFeesPaid: true },
     { id: 2, name: "Sarah Connor", email: "sarah@college.edu", room: null, cgpa: 9.3, category: "OBC", year: 3, gender: "Female", feesPaid: false, messEnrolled: true, messFeesPaid: false },
     { id: 3, name: "John Smith", email: "john@college.edu", room: null, cgpa: 7.8, category: "SC", year: 1, gender: "Male", feesPaid: false, messEnrolled: false, messFeesPaid: true },
     { id: 4, name: "Priya Sharma", email: "priya@college.edu", room: null, cgpa: 9.5, category: "General", year: 4, gender: "Female", feesPaid: true, messEnrolled: true, messFeesPaid: true },

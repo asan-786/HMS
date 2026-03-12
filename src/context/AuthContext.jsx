@@ -20,12 +20,27 @@ export const AuthProvider = ({ children }) => {
         return false;
     };
 
+    const register = (name, email, password, role = 'student', studentID = '', phoneNumber = '') => {
+        // Mock registration logic
+        setUser({ 
+            role, 
+            id: studentID || Date.now(), 
+            name, 
+            email, 
+            phoneNumber,
+            room: 'Pending', 
+            year: 1, 
+            cgpa: 0 
+        });
+        return true;
+    };
+
     const logout = () => {
         setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );

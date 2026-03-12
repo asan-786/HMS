@@ -37,8 +37,9 @@ const LandingPage = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '0.85rem' }}>
-                    <Button variant="ghost" size="sm" onClick={() => navigate('/auth')}>Student Login</Button>
-                    <Button variant="secondary" size="sm" onClick={() => navigate('/auth')}>Admin Login</Button>
+                    <Button variant="ghost" size="sm" onClick={() => navigate('/auth', { state: { view: 'login' } })}>Student Login</Button>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/auth', { state: { view: 'register' } })}>Register</Button>
+                    <Button variant="secondary" size="sm" onClick={() => navigate('/auth', { state: { view: 'login' } })}>Admin Login</Button>
                 </div>
             </nav>
 
@@ -53,8 +54,11 @@ const LandingPage = () => {
                     A premium, intelligent platform to automate room allocations, resolve complaints faster, and unify campus living.
                 </p>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <Button variant="primary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem' }} onClick={() => navigate('/auth')}>
+                    <Button variant="primary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem' }} onClick={() => navigate('/auth', { state: { view: 'login' } })}>
                         Enter Portal <ArrowRight size={20} />
+                    </Button>
+                    <Button variant="outline" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem', borderColor: 'var(--primary)', color: 'var(--primary)' }} onClick={() => navigate('/auth', { state: { view: 'register' } })}>
+                        Register Student
                     </Button>
                 </div>
 
@@ -91,7 +95,10 @@ const LandingPage = () => {
             {/* Footer */}
             <footer style={{ padding: '4rem 5%', textAlign: 'center', borderTop: '1px solid var(--border-light)', background: 'var(--bg-dark)' }}>
                 <h2 style={{ marginBottom: '1.5rem', fontSize: '2rem' }}>Ready to transform your hostel?</h2>
-                <Button variant="secondary" onClick={() => navigate('/auth')} style={{ padding: '0.8rem 2.5rem' }}>Sign In Now</Button>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
+                    <Button variant="secondary" onClick={() => navigate('/auth', { state: { view: 'login' } })} style={{ padding: '0.8rem 2.5rem' }}>Sign In Now</Button>
+                    <Button variant="outline" onClick={() => navigate('/auth', { state: { view: 'register' } })} style={{ padding: '0.8rem 2.5rem', borderColor: 'var(--secondary)', color: 'var(--secondary)' }}>Register Now</Button>
+                </div>
                 <p style={{ marginTop: '3rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>© 2026 MBM Hostel Management System. All rights reserved.</p>
             </footer>
         </div>
