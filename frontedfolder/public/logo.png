@@ -1,0 +1,8 @@
+<div class="content" role="main">
+  <img id="logo" src="hostel-logo.jpg" alt="Hostel Management Logo" width="300">
+  
+  <div class="content-text">
+    <h1>Hostel Management System</h1>
+    <p>Welcome to the premium management portal for MBM Hostels.</p>
+  </div>
+</div>
