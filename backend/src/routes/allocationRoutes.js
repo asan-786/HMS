@@ -9,5 +9,12 @@ router.use(protect, adminOnly);
 router.post("/run",        c.runAllocation);
 router.post("/assign",     c.assignRoom);
 router.post("/deallocate", c.deallocateRoom);
+router.post(
+   "/auto",
+   adminOnly,
+   c.autoAllocateMeritRooms
+);
+router.post("/auto-merit",protect,adminOnly,                  c.autoAllocateMeritRooms
+);
   
 module.exports = router;

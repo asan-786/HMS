@@ -9,10 +9,22 @@ const roomSchema = new mongoose.Schema({
   type:      { type: String, enum: ["Single", "Double", "Triple"], required: true },
   amenities: [{ type: String }],
   isActive:  { type: Boolean, default: true },
+  allocatedStudents: [
+   {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student"
+   }
+],
+
+occupied: {
+   type: Number,
+   default: 0
+}
 }, { timestamps: true });
 
 roomSchema.virtual("available").get(function () {
   return this.occupied < this.capacity;
 });
+
 
 module.exports = mongoose.model("Room", roomSchema);

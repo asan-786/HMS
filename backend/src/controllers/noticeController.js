@@ -1,52 +1,47 @@
-// const Notice = require("../models/Notice");
-
-// exports.createNotice = async (req,res)=>{
-//     try{
-//         const notice = new Notice(req.body);
-//         await notice.save();
-//         res.status(201).json(notice);
-//     }
-//     catch(error){
-//         res.status(500).json(error);
-//     }
-// };
-
-// exports.getNotices = async (req,res)=>{
-//     try{
-//         const notices = await Notice.find().populate("postedBy");
-//         res.json(notices);
-//     }
-//     catch(error){
-//         res.status(500).json(error);
-//     }
-// };
-
-
-
-
-
-
-
-
 
 const Notice = require("../models/Notice");
-
-// GET /api/notices  (all users)
+// GET /api/notices
 exports.getNotices = async (req, res) => {
   try {
-    const notices = await Notice.find({ isActive: true }).populate("postedBy", "name").sort("-createdAt");
+    const notices = await Notice.find()   // ✅ remove isActive filter
+      .populate("postedBy", "name")
+      .sort({ createdAt: -1 });
+
     res.json({ success: true, notices });
+
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
 // POST /api/notices  (admin)
+console.log("notice cnotroler loaded");
 exports.createNotice = async (req, res) => {
   try {
-    const notice = await Notice.create({ ...req.body, postedBy: req.user.id });
+    console.log("🔥 API HIT");
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+
+        // ✅ SAFETY CHECK (IMPORTANT)
+    if (!req.body || !req.body.title || !req.body.message) {
+      return res.status(400).json({
+        success: false,
+        message: "Title and message are required"
+      });
+    }
+
+    const notice = await Notice.create({
+      title: req.body.title,
+      content: req.body.message,   
+      important: req.body.important === "true",
+      pdf: req.file ? req.file.filename : "",
+      postedBy: req.user.id
+    });
+
     res.status(201).json({ success: true, notice });
+
   } catch (err) {
+    console.error("NOTICE ERROR:", err); // 🔥 MUST SEE THIS
     res.status(500).json({ success: false, message: err.message });
   }
 };
@@ -66,8 +61,37 @@ exports.updateNotice = async (req, res) => {
 exports.deleteNotice = async (req, res) => {
   try {
     await Notice.findByIdAndUpdate(req.params.id, { isActive: false });
-    res.json({ success: true, message: "Notice removed" });
+    res.json({ success: true, message: "Notice deleted" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+
+
+
+
+
+
+// POST /api/notices  (admin)
+// exports.createNotice = async (req, res) => {
+//   try {
+//     const notice = await Notice.create({ ...req.body, postedBy: req.user.id });
+//     res.status(201).json({ success: true, notice });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
+
+
+
+// GET /api/notices  (all users)
+// exports.getNotices = async (req, res) => {
+//   try {
+//     const notices = await Notice.find({ isActive: true }).populate("postedBy", "name").sort("-createdAt");
+//     res.json({ success: true, notices });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };

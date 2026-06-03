@@ -26,7 +26,7 @@ router.use(protect);
 
 router.get("/",                c.getComplaints);
 router.post("/",               c.createComplaint);
-router.put("/:id/reply",       adminOnly, c.replyToComplaint);
+router.put("/:id",       adminOnly, c.replyToComplaint);
 router.delete("/:id",          adminOnly, c.deleteComplaint);
 
 module.exports = router;

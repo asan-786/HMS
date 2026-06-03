@@ -6,7 +6,10 @@ import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import StudentDashboard from './pages/student/StudentDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import MeritList from "./pages/admin/MeritList";
 import './App.css';
+import RollVerification
+from "./pages/admin/RollVerification";
 
 const PrivateRoute = ({ children, role }) => {
   const { user } = useAuth();
@@ -14,7 +17,7 @@ const PrivateRoute = ({ children, role }) => {
   if (!user) {
     return <Navigate to="/auth" />;
   }
-
+       
   if (role && user.role !== role) {
     if (user.role === 'admin') return <Navigate to="/admin" />;
     return <Navigate to="/student" />;
@@ -28,6 +31,13 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth" element={<AuthPage />} />
+      <Route
+
+   path="/admin/roll-verification"
+
+   element={<RollVerification />}
+/>
+
 
       {/* Student Routes */}
       <Route path="/student/*" element={
@@ -36,12 +46,25 @@ const AppRoutes = () => {
         </PrivateRoute>
       } />
 
-      {/* Admin Routes */}
-      <Route path="/admin/*" element={
-        <PrivateRoute role="admin">
-          <AdminDashboard />
-        </PrivateRoute>
-      } />
+    <Route
+  path="/admin/merit-list"
+  element={
+    <PrivateRoute role="admin">
+      <MeritList />
+    </PrivateRoute>
+  }
+/>
+
+<Route
+  path="/admin/*"
+  element={
+    <PrivateRoute role="admin">
+      <AdminDashboard />
+    </PrivateRoute>
+  }
+/>
+
+
 
       {/* Fallback routing */}
       <Route path="*" element={<Navigate to="/" />} />

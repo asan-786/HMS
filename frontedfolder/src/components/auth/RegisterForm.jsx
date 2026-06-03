@@ -12,6 +12,7 @@ const RegisterForm = ({ onToggle }) => {
     const [studentID, setStudentID] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [secretKey, setSecretKey] =useState('');
     const [error, setError] = useState('');
     const { register } = useAuth();
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const RegisterForm = ({ onToggle }) => {
             return;
         }
 
-        const result = await register(name, email, password, role, studentID, phone);
+        const result = await register(name, email, password, role, studentID, phone,   secretKey);
         if (result.success) {
             navigate(role === 'admin' ? '/admin' : '/student');
         } else {
@@ -138,6 +139,92 @@ const RegisterForm = ({ onToggle }) => {
                                 style={{ width: '100%', padding: '0.85rem 1rem 0.85rem 2.8rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: 'var(--radius-md)', color: '#f3f4f6', fontSize: '0.95rem', outline: 'none' }}
                             />
                         </div>
+
+                        <div
+   style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.6rem'
+   }}
+>
+
+   <label
+      style={{
+         fontSize: '0.85rem',
+         fontWeight: 500,
+         color: '#e5e7eb'
+      }}
+   >
+
+      College Secret Key
+
+   </label>
+
+   <div
+      style={{
+         position: 'relative'
+      }}
+   >
+
+      <Lock
+
+         size={18}
+
+         style={{
+
+            position: 'absolute',
+
+            left: '1rem',
+
+            top: '50%',
+
+            transform: 'translateY(-50%)',
+
+            color: 'var(--text-muted)'
+         }}
+      />
+
+      <input
+
+         type="password"
+
+         required
+
+         placeholder="Enter Secret Key"
+
+         value={secretKey}
+
+         onChange={(e) =>
+            setSecretKey(e.target.value)
+         }
+
+         style={{
+
+            width: '100%',
+
+            padding:
+               '0.85rem 1rem 0.85rem 2.8rem',
+
+            background:
+               'rgba(255,255,255,0.03)',
+
+            border:
+               '1px solid rgba(255,255,255,0.1)',
+
+            borderRadius:
+               'var(--radius-md)',
+
+            color: '#f3f4f6',
+
+            fontSize: '0.95rem',
+
+            outline: 'none'
+         }}
+      />
+
+   </div>
+
+</div>
                     </div>
 
                     <button

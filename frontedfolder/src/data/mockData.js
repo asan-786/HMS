@@ -32,26 +32,98 @@ export const initialHostels = [
     { id: 8, name: "Kasturba Hostel", type: "Girls", roomCount: 35 }
 ];
 
-export const generateRooms = (hostels) => {
-    const rooms = [];
-    hostels.forEach(hostel => {
-        for (let i = 1; i <= hostel.roomCount; i++) {
-            // Randomly assign capacity 1, 2, or 3
-            const capacity = Math.floor(Math.random() * 3) + 1;
-            rooms.push({
-                id: `${hostel.name.substring(0, 1)}${hostel.id}-${i}`,
-                block: hostel.name,
-                hostelId: hostel.id,
-                capacity: capacity,
-                occupants: 0,
-                type: hostel.type // Boys/Girls
-            });
-        }
-    });
-    return rooms;
+
+export const generateRooms = (
+   hostels
+) => {
+
+   const rooms = [];
+
+   const years = [
+
+      "1st Year",
+
+      "2nd Year",
+
+      "3rd Year",
+
+      "Final Year"
+   ];
+
+   hostels.forEach(hostel => {
+
+      for (
+         let i = 1;
+         i <= hostel.roomCount;
+         i++
+      ) {
+
+         const capacity =
+
+            Math.floor(
+               Math.random() * 3
+            ) + 1;
+
+         const year =
+
+            years[
+               Math.floor(
+                  Math.random() *
+                  years.length
+               )
+            ];
+
+         rooms.push({
+
+            roomId:
+               `${hostel.name.charAt(0)}${hostel.id}-${i}`,
+
+            roomName:
+               `${hostel.name.charAt(0)}${hostel.id}-${i}`,
+
+            block: hostel.name,
+
+            hostelId: hostel.id,
+
+            floor:
+               Math.floor(
+                  Math.random() * 3
+               ) + 1,
+
+            capacity,
+
+            occupied: 0,
+
+            type:
+
+               capacity === 1
+
+                  ? "Single"
+
+                  : capacity === 2
+
+                     ? "Double"
+
+                     : "Triple",
+
+            genderType:
+               hostel.type,
+
+            year,
+
+            amenities: [],
+
+            allocatedStudents: [],
+
+            isActive: true
+         });
+      }
+   });
+
+   return rooms;
 };
 
-export const mockRooms = generateRooms(initialHostels);
+export const mockRooms =generateRooms(initialHostels);
 
 export const mockComplaints = [
     { id: 101, studentName: "Mahesh", room: "H4-15", category: "Electrical", description: "Fan regulator is broken.", status: "Pending", date: "2026-03-08" },

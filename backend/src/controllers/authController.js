@@ -1,77 +1,6 @@
-// const jwt = require("jsonwebtoken");
-// const User = require("../models/User");
-// const Student = require("../models/Student");
-
-// const signToken = (id) =>{
-//  return  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
-// };
-// // POST /api/auth/register
-// exports.register = async (req, res) => {
-//   try {
-
-//     const { name, email, password, role, rollNo, phone } = req.body;
-//     const existing = await User.findOne({ email });
-//     if (existing) return res.status(400).json({ success: false, message: "Email already registered" });
-
-//     const user = await User.create({ name, email, password, role: role || "student", rollNo, phone });
-
-//     if (role !== "admin") {
-//       await Student.create({
-//         user: user._id, name, email, phone,
-//         rollNo: rollNo || `STU${Date.now()}`,
-//         cgpa: 0, category: "General",
-//       });
-//     }
-
-//     const token = signToken(user._id);
-//     res.status(201).json({ success: true, token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
-//   } catch (err) {
-//     res.status(500).json({ success: false, message: err.message });
-//   }
-// };
-
-// // POST /api/auth/login
-// exports.login = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     if (!email || !password) return res.status(400).json({ success: false, message: "Email and password required" });
-
-//     const user = await User.findOne({ email }).select("+password");
-//     if (!user || !(await user.matchPassword(password)))
-//       return res.status(401).json({ success: false, message: "Invalid email or password" });
-
-//     const token = signToken(user._id);
-//     res.json({ success: true, token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
-//   } catch (err) {
-//     res.status(500).json({ success: false, message: err.message });
-//   }
-// };
-
-// // GET /api/auth/me
-// exports.getMe = async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id);
-//     res.json({ success: true, user });
-//   } catch (err) {
-//     res.status(500).json({ success: false, message: err.message });
-//   }
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const Student = require("../models/Student");
+// const Student = require("../models/Student");
 
 
 // 🔐 Generate JWT Token
@@ -82,37 +11,6 @@ const signToken = (id) => {
     { expiresIn: process.env.JWT_EXPIRE }
   );
 };
-
-// exports.register = async (req, res) => {
-//   try {
-//     console.log("Request Body:", req.body);
-
-//     const { name, email, password, role } = req.body;
-
-//     // check user exists
-//     const userExists = await User.findOne({ email });
-
-//     if (userExists) {
-//       return res.status(400).json({ message: "User already exists" });
-//     }
-
-//     // create user
-//     const user = new User({
-//       name,
-//       email,
-//       password,
-//       role,
-//     });
-
-//     await user.save();
-
-//     res.status(201).json({ message: "Signup successful" });
-
-//   } catch (error) {
-//     console.log("FULL ERROR:", error); // 👈 IMPORTANT
-//     res.status(500).json({ message: error.message });
-//   }
-// };
 
 
 // ================= REGISTER =================
@@ -132,7 +30,28 @@ exports.register = async (req, res) => {
       });
     }
 
+    console.log(
+   process.env.REGISTER_SECRET_KEY
+);
     // ✅ Check existing user
+
+     
+    if (
+            
+   req.body.secretKey !==
+
+   process.env.REGISTER_SECRET_KEY
+) {
+
+   return res.status(401).json({
+
+      success: false,
+
+      message: "Invalid Secret Key"
+   });
+}
+
+
     const existing = await User.findOne({ email });
     if (existing) {
       return res.status(400).json({
@@ -146,23 +65,16 @@ exports.register = async (req, res) => {
       name,
       email,
       password,
-      role: role || "student",
+      role: "student",
       rollNo,
       phone,
     });
-
-    // ✅ Create student profile (only if student)
-    if (user.role === "student") {
-      await Student.create({
-        user: user._id,
-        name,
-        email,
-        phone,
-        rollNo: rollNo || `STU${Date.now()}`,
-        cgpa: 0,
-        category: "General",
-      });
-    }
+        if (user.role === "admin") {
+  return res.status(403).json({
+    success: false,
+    message: "Admin cannot be registered"
+  });
+}
 
     // ✅ Generate token
     const token = signToken(user._id);
@@ -267,3 +179,9 @@ exports.getMe = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from '../../components/layout/Sidebar';
-import { LayoutDashboard, Users, Home, Settings, MessageSquareWarning, Bell, Utensils, CreditCard } from 'lucide-react';
+import { LayoutDashboard, Users, Home, Settings, MessageSquareWarning, Bell, Utensils, CreditCard,   ShieldCheck } from 'lucide-react';
 
 // Sub-pages
 import Overview from './Overview';
@@ -12,11 +12,16 @@ import ComplaintManager from './ComplaintManager';
 import NoticeBoard from './NoticeBoard';
 import MessManagement from './MessManagement';
 import FeeManagement from './FeeManagement';
+import MeritList   from './MeritList';
+import RollVerification
+from './RollVerification';
 
 const AdminDashboard = () => {
     const adminLinks = [
         { path: "/admin", label: "Dashboard", icon: <LayoutDashboard size={20} />, end: true },
         { path: "/admin/students", label: "Students", icon: <Users size={20} /> },
+        { path: "/admin/roll-verification", label: "Roll Verification", icon: <ShieldCheck size={20} /> },
+        { path: "/admin/merit-list",label: "Merit List",icon: <Users size={20} />},
         { path: "/admin/fees", label: "Fee Management", icon: <CreditCard size={20} /> },
         { path: "/admin/rooms", label: "Rooms", icon: <Home size={20} /> },
         { path: "/admin/allocation", label: "Allocation Algo", icon: <Settings size={20} /> },
@@ -36,9 +41,12 @@ const AdminDashboard = () => {
                     <Route path="/fees" element={<FeeManagement />} />
                     <Route path="/rooms" element={<RoomManagement />} />
                     <Route path="/allocation" element={<RoomAllocation />} />
-                    <Route path="/complaints" element={<ComplaintManager />} />
+                    <Route path="/complaints" element={<ComplaintManager />
+                    } />
+                    <Route path="/merit-list" element={<MeritList />} />
                     <Route path="/notices" element={<NoticeBoard />} />
                     <Route path="/mess" element={<MessManagement />} />
+                    <Route path="/roll-verification" element={<RollVerification />} />
                     <Route path="*" element={<Navigate to="/admin" />} />
                 </Routes>
             </main>

@@ -1,154 +1,153 @@
-// // const jwt = require("jsonwebtoken");
-// // const User = require("../models/User");
-
-
-
-// // const protect = async (req, res, next) => {
-// //   let token;
-
-// //   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-// //     token = req.headers.authorization.split(" ")[1];
-// //   }
-
-// //   if (!token) {
-// //     return res.status(401).json({ success: false, message: "Not authorized, no token" });
-// //   }
-
-// //   try {
-// //     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-// //     req.user = await User.findById(decoded.id).select("-password");
-
-// //     next();
-// //   } catch (err) {
-// //     return res.status(401).json({ success: false, message: "Token invalid or expired" });
-// //   }
-// // };
-
-// // const adminOnly = (req, res, next) => {
-// //   if (req.user && req.user.role === "admin") {
-// //     return next();
-// //   }
-
-// //   return res.status(403).json({ success: false, message: "Admin access only" });
-// // };
-
-// // module.exports = { protect, adminOnly };
-
-
-
-
-
-
-
-
-
-
-
-
 // const jwt = require("jsonwebtoken");
 // const User = require("../models/User");
 
 // const protect = async (req, res, next) => {
-//   let token;
-
-//   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-//     token = req.headers.authorization.split(" ")[1];
-//   }
-
-//   if (!token) {
-//     return res.status(401).json({ success: false, message: "Not authorized, no token" });
-//   }
-
 //   try {
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     let token;
 
-//     req.user = await User.findById(decoded.id).select("-password");
+//     if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+//       token = req.headers.authorization.split(" ")[1];
 
-//     next(); // move to next middleware/route
-//   } catch (err) {
-//     return res.status(401).json({ success: false, message: "Token invalid or expired" });
+//       console.log("TOKEN:", token); // ✅ debug
+
+//       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//       console.log("DECODED:", decoded);
+
+//       console.log("DECODED:", decoded); // ✅ debug
+
+//       const user = await User.findById(decoded.id);
+
+//       console.log("DB USER:", user); // ✅ debug
+
+//       if (!user) {
+//         return res.status(401).json({ message: "User not found" });
+//       }
+
+//       req.user = user;
+// console.log("USER:", user);
+//       next();
+//     } else {
+//       return res.status(401).json({ message: "No token" });
+//     }
+
+//   } catch (error) {
+//     console.log("AUTH ERROR:", error.message);
+//     return res.status(401).json({ message: "Token failed" });
 //   }
 // };
-
-// const adminOnly = (req, res, next) => {
-//   if (req.user && req.user.role === "admin") {
-//     return next();
-//   }
-//   return res.status(403).json({ success: false, message: "Admin access only" });
-// };
-
-// module.exports = { protect, adminOnly };
-
-
-
-
 
 
 
 const jwt = require("jsonwebtoken");
+
 const User = require("../models/User");
 
+const protect = async (
+   req,
+   res,
+   next
+) => {
 
-// 🔐 1. PROTECT (Check Login)
-const protect = async (req, res, next) => {
-  try {
-    let token;
+   try {
 
-    // Get token from header
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    }
+      console.log(
+         "HEADERS:",
+         req.headers
+      );
 
-    // If no token
-    if (!token) {
+      const authHeader =
+         req.headers.authorization;
+
+      console.log(
+         "AUTH HEADER:",
+         authHeader
+      );
+
+      if (
+         !authHeader ||
+
+         !authHeader.startsWith("Bearer ")
+      ) {
+
+         return res.status(401).json({
+
+            success: false,
+
+            message: "No token provided"
+         });
+      }
+
+      const token =
+         authHeader.split(" ")[1];
+
+      console.log(
+         "TOKEN:",
+         token
+      );
+
+      const decoded =
+         jwt.verify(
+
+            token,
+
+            process.env.JWT_SECRET
+         );
+
+      console.log(
+         "DECODED:",
+         decoded
+      );
+
+      const user =
+         await User.findById(decoded.id);
+
+      console.log(
+         "USER:",
+         user
+      );
+
+      if (!user) {
+
+         return res.status(401).json({
+
+            success: false,
+
+            message: "User not found"
+         });
+      }
+
+      req.user = user;
+
+      next();
+
+   } catch (err) {
+
+      console.log(
+         "AUTH ERROR:",
+         err.message
+      );
+
       return res.status(401).json({
-        success: false,
-        message: "Not authorized, no token",
+
+         success: false,
+
+         message: err.message
       });
-    }
-
-    // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // Get user from DB
-    const user = await User.findById(decoded.id).select("-password");
-
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    // Attach user to request
-    req.user = user;
-
-    next();
-
-  } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: "Token invalid or expired",
-    });
-  }
+   }
 };
 
 
 
-// 🔐 2. ADMIN ONLY
-const adminOnly = (req, res, next) => {
-  if (req.user && req.user.role === "admin") {
-    return next();
-  }
 
-  return res.status(403).json({
-    success: false,
-    message: "Admin access only",
-  });
+const adminOnly = (req, res, next) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res.status(403).json({
+      success: false,
+      message: "Admin access only"
+    });
+  }
+  next();
+ console.log("ROLE CHECK:", req.user?.role);
 };
 
 
@@ -193,6 +192,13 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
+// console.log("HEADERS:", req.headers);
+// console.log(
+//    "AUTH HEADER:",
+//    req.headers.authorization
+// );
+
+
 
 
 module.exports = {
@@ -202,3 +208,8 @@ module.exports = {
   authorizeRoles,
   errorHandler,
 };
+
+
+
+
+
