@@ -10,6 +10,7 @@ import MeritList from "./pages/admin/MeritList";
 import './App.css';
 import RollVerification
 from "./pages/admin/RollVerification";
+import AboutUs from "./pages/AboutUs";
 
 const PrivateRoute = ({ children, role }) => {
   const { user } = useAuth();
@@ -31,20 +32,48 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth" element={<AuthPage />} />
-      <Route
+      <Route path="/admin/roll-verification"
 
-   path="/admin/roll-verification"
+    element={<RollVerification />}
+  /> 
 
-   element={<RollVerification />}
+    {/* <Route
+    path="/admin/roll-verification"
+    element={
+        <PrivateRoute role="admin">
+            <RollVerification />
+        </PrivateRoute>
+    }
+/> */}
+
+
+
+   <Route
+path="/admin/*"
+element={<AdminDashboard />}
+/>
+
+   
+   <Route
+path="/about"
+element={<AboutUs />}
 />
 
 
-      {/* Student Routes */}
+
+      {/* Student Routes
       <Route path="/student/*" element={
         <PrivateRoute role="student">
           <StudentDashboard />
         </PrivateRoute>
-      } />
+      } /> */}
+
+
+   <Route
+path="/student/*"
+element={<StudentDashboard />}
+/>
+
 
     <Route
   path="/admin/merit-list"

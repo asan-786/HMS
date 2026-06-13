@@ -5,9 +5,21 @@ import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 
+
+
+
 const LandingPage = () => {
     const navigate = useNavigate();
 
+
+   const navStyle = {
+    background: "transparent",
+    border: "none",
+    color: "white",
+    cursor: "pointer",
+    fontSize: "1rem",
+    fontWeight: "600"
+};
     const features = [
         { icon: <Home size={24} />, title: "Smart Room Allocation", desc: "Automated CGPA & category-based room assignment algorithm." },
         { icon: <MessageSquare size={24} />, title: "Complaint Tracking", desc: "Real-time ticket raising and resolution status updates." },
@@ -24,8 +36,10 @@ const LandingPage = () => {
         { value: "24/7", label: "Support" }
     ];
 
+
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>f
             {/* Top Navigation */}
             <nav style={{ padding: '1.25rem 5%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', background: 'rgba(15, 17, 21, 0.9)', backdropFilter: 'blur(15px)', position: 'sticky', top: 0, zIndex: 100 }}>
                 <div
@@ -37,6 +51,34 @@ const LandingPage = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '0.85rem' }}>
+                       <button
+        onClick={() => navigate('/')}
+        style={navStyle}
+    >
+        Home
+    </button>
+
+    <button
+        onClick={() => navigate('/student')}
+        style={navStyle}
+    >
+        Student
+    </button>
+
+    <button
+        onClick={() => navigate('/admin')}
+        style={navStyle}
+    >
+        Admin
+    </button>
+
+    <button 
+        onClick={() => navigate('/about')}
+        style={navStyle}
+        
+    >
+        About Us
+    </button>
                     <Button variant="ghost" size="sm" onClick={() => navigate('/auth', { state: { view: 'login' } })}>Login</Button>
                     <Button variant="secondary" size="sm" onClick={() => navigate('/auth', { state: { view: 'register' } })}>Register</Button>
                 </div>

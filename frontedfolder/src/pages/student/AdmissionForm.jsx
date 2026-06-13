@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import { useHostel } from '../../context/HostelContext';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const AdmissionForm = () => {
 
     const { addAdmissionStudent } = useHostel();
+    const navigate = useNavigate();
+
+    const { user } = useAuth();
 
     const [submitted, setSubmitted] = useState(false);
 
@@ -48,6 +53,15 @@ const AdmissionForm = () => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
+        
+          if (!user) {
+
+        alert("Please Login/Register first.");
+
+        navigate("/auth");
+
+        return;
+    }
 
         console.log("FORM DATA:", formData);
 
