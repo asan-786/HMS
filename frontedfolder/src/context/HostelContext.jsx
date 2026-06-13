@@ -10,7 +10,7 @@ export const useHostel = () => useContext(HostelContext);
 
 // ✅ Axios instance (no need to repeat headers everywhere)
 const API = axios.create({
-    baseURL: "http://localhost:5000/api"
+    baseURL: "https://hms-w6eu.onrender.com/api"
 });
 
 // ✅ Add token automatically in every request
@@ -267,7 +267,7 @@ if (user?.role === "student") {
 
 //       const res = await axios.post(
 
-//          "http://localhost:5000/api/allocation/auto",
+//          "https://hms-w6eu.onrender.com/api/allocation/auto",
 
 //          {},
 
@@ -375,7 +375,7 @@ const addComplaint = async (newComplaint) => {
 
 //       const res = await axios.post(
 
-//          "http://localhost:5000/api/allocation/assign",
+//          "https://hms-w6eu.onrender.com/api/allocation/assign",
 
 //          {
 //             studentId,
@@ -451,7 +451,7 @@ const addAdmissionStudent = async (data) => {
 
         const res = await axios.post(
 
-            "http://localhost:5000/api/student/admission",
+            "https://hms-w6eu.onrender.com/api/student/admission",
 
             data,
 

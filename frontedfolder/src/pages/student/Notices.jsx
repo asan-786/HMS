@@ -62,7 +62,7 @@ const Notices = () => {
                                 </p>
                                   {notice.pdf && (
     <a
-      href={`http://localhost:5000/uploads/${notice.pdf}`}
+      href={`https://hms-w6eu.onrender.com/uploads/${notice.pdf}`}
       target="_blank"
       rel="noreferrer"
     >

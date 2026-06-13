@@ -25,7 +25,7 @@ const RollVerification = () => {
             const res =
                await axios.post(
 
-                  "http://localhost:5000/api/verification/upload",
+                  "https://hms-w6eu.onrender.com/api/verification/upload",
 
                   { rollNumbers },
 

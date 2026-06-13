@@ -188,7 +188,7 @@ return (
                                 {/* ✅ PDF VIEW */}
                                 {notice.pdf && (
                                     <a
-                                        href={`http://localhost:5000/uploads/${notice.pdf}`}
+                                        href={`https://hms-w6eu.onrender.com/uploads/${notice.pdf}`}
                                         target="_blank"
                                         rel="noreferrer"
                                         style={{ color: 'blue', fontSize: '0.9rem' }}

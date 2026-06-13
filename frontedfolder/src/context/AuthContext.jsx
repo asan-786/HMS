@@ -7,7 +7,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 // Configure axios base URL
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = 'https://hms-w6eu.onrender.com/api/auth';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
